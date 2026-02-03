@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open the Door</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(90deg,#2bb0c8 0%,#2bb0c8 33%,#e6392f 33%,#e6392f 66%,#f2c300 66%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Scene */
+.scene {
+    width: 360px;
+    height: 460px;
+    perspective: 1200px;
+    position: relative;
+}
+
+/* Door */
+.door {
+    width: 100%;
+    height: 100%;
+    background: #e6392f;
+    border-radius: 18px;
+    position: absolute;
+    transform-origin: left center;
+    box-shadow: inset -6px 0 12px rgba(0,0,0,0.3);
+    transition: transform 1.4s ease;
+    cursor: pointer;
+}
+
+.door::before {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: gold;
+    border-radius: 50%;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.door-text {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    transform: translateY(-50%);
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
+/* Open State */
+.scene.open .door {
+    transform: rotateY(-110deg);
+}
+
+/* Card */
+.card {
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 28px 24px;
+    text-align: center;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 1s ease 0.4s, transform 1s ease 0.4s;
+}
+
+.scene.open .card {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.moon {
+    font-size: 42px;
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+h1 {
+    font-size: 22px;
+    margin: 12px 0;
+    color: #1f2933;
+}
+
+p {
+    margin: 25px 0 30px;
+    font-size: 16px;
+    color: #333;
+}
+
+.buttons {
+    position: relative;
+    height: 90px;
+}
+
+button {
+    padding: 11px 26px;
+    border-radius: 30px;
+    font-size: 15px;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s;
+}
+
+#yesBtn {
+    background: #e6392f;
+    color: white;
+}
+
+#yesBtn:hover {
+    transform: scale(1.08);
+}
+
+#noBtn {
+    background: transparent;
+    border: 2px dashed #f2c300;
+    color: #555;
+    position: absolute;
+    right: 0;
+}
+
+.message {
+    display: none;
+    margin-top: 22px;
+    font-size: 17px;
+    color: #2bb0c8;
+}
+</style>
+</head>
+
+<body>
+
+<div class="scene" id="scene">
+    <div class="card">
+        <div class="moon">🌙</div>
+        <h1>To the moon of my imagiNATION</h1>
+
+        <p>
+            Would you like to go on a <br>
+            <strong>chai date</strong> with me? ☕
+        </p>
+
+        <div class="buttons">
+            <button id="yesBtn">Yes 🙂</button>
+            <button id="noBtn">No 🙃</button>
+        </div>
+
+        <div class="message" id="response">
+            ☕🌙 The door was meant to open.
+        </div>
+    </div>
+
+    <div class="door" id="door">
+        <div class="door-text">Tap to Open 🚪</div>
+    </div>
+</div>
+
+<script>
+const scene = document.getElementById("scene");
+const door = document.getElementById("door");
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const response = document.getElementById("response");
+
+door.addEventListener("click", () => {
+    scene.classList.add("open");
+});
+
+noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * 220 - 110;
+    const y = Math.random() * 120 - 60;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+});
+
+yesBtn.addEventListener("click", () => {
+    response.style.display = "block";
+});
+</script>
+
+</body>
+</html>
